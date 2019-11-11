@@ -13,11 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{457760f6-a8be-494c-a02b-801c106544ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Managers">
+      <UniqueIdentifier>{5e265020-1325-4220-a455-89da3a6cd392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Systems">
+      <UniqueIdentifier>{1d541d17-2214-4d59-acb2-fbce8517a496}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components">
+      <UniqueIdentifier>{08f866d6-5fc4-4a1b-9352-621939109862}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -26,5 +33,16 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FrameRateManager.cpp">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameRateManager.h">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
