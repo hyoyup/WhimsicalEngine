@@ -154,6 +154,7 @@
   <ItemGroup>
     <ClInclude Include="FrameRateManager.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="SIngleton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FrameRateManager.cpp" />

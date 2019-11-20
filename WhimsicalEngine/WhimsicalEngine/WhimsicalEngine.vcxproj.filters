@@ -44,5 +44,8 @@
     <ClInclude Include="FrameRateManager.h">
       <Filter>Source Files\Engine\Managers</Filter>
     </ClInclude>
+    <ClInclude Include="SIngleton.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
