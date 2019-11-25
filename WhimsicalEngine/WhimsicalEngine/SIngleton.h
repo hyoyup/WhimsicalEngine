@@ -7,8 +7,8 @@ public:
     virtual                                         ~Singleton() = default;
     static T*                                       GetInstance();
     Singleton(const Singleton&)                 = delete;
-    Singleton& operator= (const LYSingleton)      = delete;
-    Singleton& operator= (const LYSingleton&&)    = delete;
+    Singleton& operator= (const Singleton)      = delete;
+    Singleton& operator= (const Singleton&&)    = delete;
 	
 	// Called only in DLL, for syncronize singleton instance
 	static bool										_SetInstance(T* a_instance);

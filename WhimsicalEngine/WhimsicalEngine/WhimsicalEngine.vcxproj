@@ -152,11 +152,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Engine.h" />
     <ClInclude Include="FrameRateManager.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="SIngleton.h" />
+    <ClInclude Include="Singleton.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FrameRateManager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

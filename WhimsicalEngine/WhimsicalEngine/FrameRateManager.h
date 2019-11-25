@@ -9,9 +9,9 @@
 
 typedef std::chrono::high_resolution_clock					Clock;
 typedef std::chrono::high_resolution_clock::time_point		TimePoint;
-typedef std::chrono::milliseconds							Millisecond; // 
+typedef std::chrono::milliseconds							Millisecond;
 typedef std::chrono::microseconds							Microsecond;
-typedef std::chrono::duration<float>						FloatSecond;
+typedef std::chrono::duration<float, std::milli>			Elapsed;
 typedef std::chrono::seconds								Seconds;
 
 class WEFrameRateManager
@@ -28,6 +28,7 @@ public:
 	WEFrameRateManager(unsigned int maxFrameRate = 60);
 	~WEFrameRateManager();
 	WEFrameRateManager(const WEFrameRateManager &) = delete;
+
 	void operator=(const WEFrameRateManager &) = delete;
 	void SetMaxFrameRate(unsigned int maxFrameRate = 60);
 	void FrameStart();
@@ -37,10 +38,6 @@ public:
 	float GetElapsedTime(); // total elapsed time from level start in seconds
 	float GetFrameTime(); // in seconds
 };
-
-
-using std_clock = std::chrono::steady_clock;
-using std_seconds = std::chrono::seconds;
 
 class StopWatch
 {
@@ -61,10 +58,10 @@ public:
 	// Return the elapsed seconds since start
 	inline uint64           ElapsedInSec() const;
 
-	Clock::time_point   Reset();
+	std::chrono::steady_clock::time_point   Reset();
 
 private:
-	Clock::time_point   m_Start;
+	std::chrono::steady_clock::time_point   m_Start;
 
 };
 
@@ -72,17 +69,17 @@ private:
 
 inline uint64 StopWatch::ElapsedInUs() const
 {
-	return std::chrono::duration_cast<Microsecond>(std_clock::now() - m_Start).count();
+	return std::chrono::duration_cast<Microsecond>(std::chrono::steady_clock::now() - m_Start).count();
 }
 // Return the elapsed milliseconds since start
 inline uint64 StopWatch::ElapsedInMs() const
 {
-	return std::chrono::duration_cast<Millisecond>(std_clock::now() - m_Start).count();
+	return std::chrono::duration_cast<Millisecond>(std::chrono::steady_clock::now() - m_Start).count();
 }
 // Return the elapsed seconds since start
 inline uint64 StopWatch::ElapsedInSec() const
 {
-	return std::chrono::duration_cast<std_seconds>(std_clock::now() - m_Start).count();
+	return std::chrono::duration_cast<Seconds>(std::chrono::steady_clock::now() - m_Start).count();
 }
 
 

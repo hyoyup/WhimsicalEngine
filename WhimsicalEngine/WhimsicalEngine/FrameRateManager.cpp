@@ -46,16 +46,16 @@ void WEFrameRateManager::FrameEnd() {
 	//	m_totalElapsedTime += m_frameTime;
 	//}
 	//else {
-	//	auto dur = m_tickEnd - m_tickStart;
-	//	FloatSecond fsec = std::chrono::duration_cast<FloatSecond>(dur);
-	//	m_frameTime = float(fsec.count()); //  / 1000.0f;
-	//	m_totalElapsedTime += m_frameTime;
+		auto dur = m_tickEnd - m_tickStart;
+		Elapsed fsec = std::chrono::duration_cast<Elapsed>(dur);
+		m_frameTime = float(fsec.count()); //  / 1000.0f;
+		m_totalElapsedTime += m_frameTime;
 
-	//	m_secondCounter += m_frameTime;
-	//	float fps = 1.0f / m_frameTime;
-	//	if (fps < 40.0f) {
-	//		//std::cout << "FPS dropped to: " << fps << std::endl;
-	//	}
+		m_secondCounter += m_frameTime;
+		float fps = 1.0f / m_frameTime;
+		if (fps < 40.0f) {
+			std::cout << "FPS dropped to: " << fps << std::endl;
+		}
 	//}
 
 	//if (m_secondCounter >= 0.1f) {
@@ -80,11 +80,12 @@ float WEFrameRateManager::GetMaxFrameRate() {
 	return MIN_FRAME_TIME;
 }
 
+//////////////////////////////////////////////////////////////////////////////////
 
 StopWatch::StopWatch() :
 	m_Start(Clock::now())
 {
-	static_assert(std::chrono::high_resolution_clock::is_steady, "Serious OS/C++ library issues. Steady clock is not steady");
+	static_assert(std::chrono::steady_clock::is_steady, "Serious OS/C++ library issues. Steady clock is not steady");
 }
 
 StopWatch::StopWatch(const StopWatch& rhs) :
@@ -100,6 +101,6 @@ StopWatch& StopWatch::operator=(const StopWatch& rhs)
 // Resets stop watch to start point
 Clock::time_point StopWatch::Reset()
 {
-	m_Start = std_clock::now();
+	m_Start = Clock::now();
 	return m_Start;
 }

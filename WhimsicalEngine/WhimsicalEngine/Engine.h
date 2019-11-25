@@ -29,6 +29,9 @@
 //class LYThreadJobManager;
 //class LYGameDataManager;
 
+// forward declaration
+class WEFrameRateManager;
+
 class WEEngine :
     Singleton<WEEngine>
 {
@@ -45,8 +48,6 @@ public:
     bool                        Finalize();
 
     void                        Run();
-    void                        MainLoopSingleThread();
-    void                        MainSimulationLoop();
     void                        DebugKeyInput();
     void                        TurnOnFullscreen();
     void                        TurnOffFullscreen();
@@ -95,23 +96,18 @@ public:
 	*/
 
     inline bool IsDebugMode() { return m_bIsDebug; }
-    inline bool                 IsPaused();
-    inline void                 LockUnpause(bool a_bLock);
 
     inline uint32               GetCurrentResolutionIndex() const { return m_uCurrResolutionIndex; }
 private:
 
     bool                        RegisterClass();
-    bool                        CreateWindow();
+    //bool                        CreateWindow();
     bool                        ResizeWindow();
     bool                        DestoryWindowAnUnregisterClass();
-    bool                        SyncEngineInstanceWithPyModule();
-
-    void                        RunMultiThreaded();
-    void                        RunSingleThreaded();
     void                        ProcessWindowsMessages(MSG& a_message);
     void                        HandleSceneChange();
     void                        HandlePauseChange();
+	void						MainLoop();
 
     static LRESULT CALLBACK     HWndProc(HWND a_hWindow, UINT a_uMessage, WPARAM a_uWideParam, LPARAM a_uLongParam);
     static LONG WINAPI          WndUnhandledExceptionProc(struct _EXCEPTION_POINTERS * a_pExceptionInfo);
