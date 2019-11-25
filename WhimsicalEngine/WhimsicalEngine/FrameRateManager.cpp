@@ -5,7 +5,7 @@
 
 #define MIN_FRAME_TIME 0.016667f
 
-FrameRateManager::FrameRateManager(unsigned int maxFrameRate) :
+WEFrameRateManager::WEFrameRateManager(unsigned int maxFrameRate) :
 	m_secondCounter(0.f),
 	m_frameTime(0.0166667f)
 {
@@ -18,9 +18,9 @@ FrameRateManager::FrameRateManager(unsigned int maxFrameRate) :
 	m_totalElapsedTime = 0.0f;
 }
 
-FrameRateManager::~FrameRateManager() {}
+WEFrameRateManager::~WEFrameRateManager() {}
 
-void FrameRateManager::SetMaxFrameRate(unsigned int maxFrameRate)
+void WEFrameRateManager::SetMaxFrameRate(unsigned int maxFrameRate)
 {
 	if (maxFrameRate == 0) {
 		m_maxFrameRate = UINT16_MAX;
@@ -29,11 +29,11 @@ void FrameRateManager::SetMaxFrameRate(unsigned int maxFrameRate)
 	m_ticksPerFrame = 1.0f / (float)m_maxFrameRate;
 }
 
-void FrameRateManager::FrameStart() {
+void WEFrameRateManager::FrameStart() {
 	m_tickStart = Clock::now();
 }
 
-void FrameRateManager::FrameEnd() {
+void WEFrameRateManager::FrameEnd() {
 	m_tickEnd = Clock::now();
 	Millisecond duration = std::chrono::duration_cast<Millisecond>(m_tickEnd - m_tickStart);
 	while (duration.count() < m_ticksPerFrame) {
@@ -64,18 +64,42 @@ void FrameRateManager::FrameEnd() {
 	//}
 }
 
-void FrameRateManager::ResetElapsedTime() {
+void WEFrameRateManager::ResetElapsedTime() {
 	m_totalElapsedTime = 0.0f;
 }
 
-float FrameRateManager::GetElapsedTime() {
+float WEFrameRateManager::GetElapsedTime() {
 	return m_totalElapsedTime;
 }
 
-float FrameRateManager::GetFrameTime() {
+float WEFrameRateManager::GetFrameTime() {
 	return m_frameTime;
 }
 
-float FrameRateManager::GetMaxFrameRate() {
+float WEFrameRateManager::GetMaxFrameRate() {
 	return MIN_FRAME_TIME;
+}
+
+
+StopWatch::StopWatch() :
+	m_Start(Clock::now())
+{
+	static_assert(std::chrono::high_resolution_clock::is_steady, "Serious OS/C++ library issues. Steady clock is not steady");
+}
+
+StopWatch::StopWatch(const StopWatch& rhs) :
+	m_Start(rhs.m_Start)
+{}
+
+StopWatch& StopWatch::operator=(const StopWatch& rhs)
+{
+	m_Start = rhs.m_Start;
+	return *this;
+}
+
+// Resets stop watch to start point
+Clock::time_point StopWatch::Reset()
+{
+	m_Start = std_clock::now();
+	return m_Start;
 }
